@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+   
+    background-image: url('static/woman.jpg');
+    background-size: cover; /* Make the background image cover the entire page */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+}
+
+form {
+    width: 300px; /* Adjust the width of the form */
+    padding: 20px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    background-color: transparent; /* Optional: Add a background color */
+   
+
+   
+    
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 22px); /* Adjust the width of the input */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color:#00a9fd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 1px; /* Add margin-bottom to create a gap */
+}
+
+button[type="button"] {
+    width: 100%;
+    padding: 10px;
+    background-color:  #00a9fd;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color:#005679;
+}
+h2{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+</style>
+</head>
+<body>
+    <form action="/login" method="POST">
+        <h2>Login Page</h2>
+        <label for="mail">Email:</label><br>
+        <input type="email" id="mail" name="mail" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

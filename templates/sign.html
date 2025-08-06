@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Recognition for Enhanced Communication</title>
+    <style>
+        body {
+            background-image: url('static/hand1.jpg'); /* Replace with the actual path to your image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        label {
+           display: block;
+           margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 22px); /* Adjust the width of the input */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #00a9fd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+
+        button[type="submit"]:hover{
+            background-color: green;
+        }
+        button[type="button"]:hover {
+            background-color: #005679;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+       
+        .open-button {
+            width: 100px;
+            margin-right: 60px;
+            margin-left: 60px;
+            text-align: center;
+            background-color: #51f44f;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .a1{
+            position: fixed;
+            top: 10px;
+            left: 10px;
+
+        }
+        button{
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;  
+            background-color: #00a9fd ;
+        }
+        button:hover{
+            background-color: #3498db;
+        }
+        .loading {
+    display: none;
+  }
+  #loadingMessage{
+    font-size: large;
+    font-weight: bold;
+  }
+
+        /* Add any additional styling for other elements here */
+    </style>
+    
+</head>
+<body>
+    <div class="a1">
+  <a href="/index"><button>Back</button></a>
+</div>
+    <h1>Sign Language Recognition for Enhanced Communication</h1>
+    <form action="/video_feed_endpoint" method="post">
+        <label for="text" style="font-size: 17px; color: black;">Enter the Text</label>
+		<input type="text" id="text" name="text" style="font-weight: bold"/>
+		<br/>
+    <button class="open-button" type="submit" style="color: rgb(0, 0, 0);  padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+    </form><br><br><br>
+    
+<a href="/speak" id="speechButton"> <button id="speechButton" onclick="startSpeech()">Speech</button></a>
+<div id="loadingMessage" class="loading">Speak Now...</div>
+
+<script>
+function startSpeech() {
+  var button = document.getElementById('speechButton');
+  var loadingMessage = document.getElementById('loadingMessage');
+
+  // Hide the button and show the loading message
+  button.style.display = 'none';
+  loadingMessage.style.display = 'block';
+
+  // Simulate speech recognition here
+  setTimeout(function() {
+    // After some time (here 3 seconds), hide loading message and show button again
+    loadingMessage.style.display = 'none';
+    button.style.display = 'block';
+  }, 5000); // 3000 milliseconds = 3 seconds
+}
+</script>
+
+</html>

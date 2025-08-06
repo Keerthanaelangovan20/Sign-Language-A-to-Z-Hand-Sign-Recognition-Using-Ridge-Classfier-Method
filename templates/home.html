@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Buttons</title>
+    <style>
+        body {
+            background-image: url('static/hand1.jpg'); /* Replace with the actual path to your image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .back-button {
+            position: absolute;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff; /* Blue color */
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button-container {
+            
+            justify-content: center;
+            margin-top: 100px; /* Adjust margin as needed */
+        }
+
+        .centered-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff; /* Blue color */
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 10px 10px;
+        }
+
+        h1 {
+           
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+            color: #FFFFFF;
+            background-color: transparent;
+            border: 2px solid palevioletred;
+        }
+
+        .text-box {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 30px 10px;
+            width: 500px;
+            height: 100px;
+            max-width: 900px;
+            font-size: 18px;
+            line-height: 1.5;
+            margin-left: 2%;
+            color: white;
+        }
+
+        .center {
+		
+        }
+		.left {
+			text-align: left;
+		}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <h1>Sign Language Recognition for Enhanced Communication</h1>
+    <header>
+        <a href="{{ url_for('index') }}" class="back-button"><i class="fas fa-home"></i> Back to Home</a>
+    </header>
+    <div class="button-container">
+        <a href="{{ url_for('generate_frames') }}" class="centered-button"><i class="fas fa-camera"></i> Open Camera</a>       
+		<a href="{{ url_for('play_voice', lang='english') }}" class="centered-button">
+			<i class="fas fa-volume-up"></i> Play English
+		</a>
+
+		<a href="{{ url_for('play_voice', lang='tamil') }}" class="centered-button">
+			<i class="fas fa-volume-up"></i> Play Tamil
+		</a>
+
+		<a href="{{ url_for('play_voice', lang='hindi') }}" class="centered-button">
+			<i class="fas fa-volume-up"></i> Play Hindi
+		</a>
+
+		<a href="{{ url_for('play_voice', lang='malayalam') }}" class="centered-button">
+			<i class="fas fa-volume-up"></i> Play Malayalam
+		</a>
+
+		<a href="{{ url_for('play_voice', lang='kannada') }}" class="centered-button">
+			<i class="fas fa-volume-up"></i> Play Kannada
+		</a>
+				<a href="{{ url_for('delete') }}" class="centered-button"><i class="fas fa-volume-up"></i> delete words</a>       
+			</div>
+<div class='left'>
+    <h2 style='color:white';>DETECT LETTERS:</h2>
+    <div class="text-box" id="whole_word_text"></div><br><br>       
+</div>
+
+<script>
+        function getData() {
+            fetch('/get_data')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('An error occurred:', data.error);
+                    } else {
+                        // Display whole word text
+                        const wholeWordDiv = document.getElementById('whole_word_text');
+                        wholeWordDiv.textContent = data.data; // Assuming data.data is a string
+
+                        // Display Tamil buttons
+                        const tamilButtonsContainer = document.getElementById('tamilButtons');
+                        tamilButtonsContainer.innerHTML = '';
+                        data.tamil.forEach(tamilWord => {
+                            const tamilButton = document.createElement('button');
+                            tamilButton.textContent = tamilWord;
+                            tamilButton.addEventListener('click', () => sendDataToPython(tamilWord));
+                            tamilButtonsContainer.appendChild(tamilButton);
+                        });
+
+                        // Display English buttons
+                        const englishButtonsContainer = document.getElementById('englishButtons');
+                        englishButtonsContainer.innerHTML = '';
+                        data.english.forEach(englishWord => {
+                            const englishButton = document.createElement('button');
+                            englishButton.textContent = englishWord;
+                            englishButton.addEventListener('click', () => sendDataToPython(englishWord));
+                            englishButtonsContainer.appendChild(englishButton);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Function to send selected word to Python
+        function sendDataToPython(selectedWord) {
+            fetch('/value', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selectedWord })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response from Python:', data);
+                    // Handle response from Python if needed
+                })
+                .catch(error => {
+                    console.error('Error sending data to Python:', error);
+                });
+        }
+
+        // Call the getData function initially when the page loads
+        window.onload = getData;
+
+        // Fetch data every 1 second
+        setInterval(getData, 1000);
+ </script>
+
+</body>
+
+</html>
