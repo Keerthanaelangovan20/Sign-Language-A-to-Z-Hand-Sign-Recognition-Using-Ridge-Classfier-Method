@@ -1,0 +1,1 @@
+# Sign-Language-A-to-Z-Hand-Sign-Recognition-Using-Ridge-Classfier-Method
